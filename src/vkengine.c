@@ -110,7 +110,7 @@ vk_engine_t* vkengine_create (VkPresentModeKHR presentMode, uint32_t width, uint
 	enabledExtsCount++;
 #endif
 
-	e->app = vkh_app_create("vkvgTest", 0, NULL, enabledExtsCount, enabledExts);
+	e->app = vkh_app_create(1,2,"vkvgTest", 0, NULL, enabledExtsCount, enabledExts);
 
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 	glfwWindowHint(GLFW_RESIZABLE,  GLFW_TRUE);
