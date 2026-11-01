@@ -1,28 +1,18 @@
-cmake_minimum_required(VERSION 2.4)
+cmake_minimum_required(VERSION 3.14)
 
 project(vkvg_minimal_app)
 
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
-FIND_PACKAGE(vkvg REQUIRED)
-FIND_PACKAGE(vkh REQUIRED)
-FIND_PACKAGE(Vulkan REQUIRED)
-FIND_PACKAGE(GLFW3 REQUIRED)
+find_library(VKVG_LIBRARY NAMES vkvg)
 
 FILE(GLOB sources src/*.c)
 
-add_executable(app ${sources})
+add_executable(${PROJECT_NAME} ${sources})
 
-TARGET_INCLUDE_DIRECTORIES(app PRIVATE
-	${Vulkan_INCLUDE_DIRS}
-	${vkvg_INCLUDE_DIRS}
-	${vkh_INCLUDE_DIRS}
-	${GLFW3_INCLUDE_DIR}
+TARGET_LINK_LIBRARIES(${PROJECT_NAME}
+	${VKVG_LIBRARY}
 )
-TARGET_LINK_LIBRARIES(app
-	${Vulkan_LIBRARIES}
-	${vkvg_LIBRARIES}
-	${vkh_LIBRARIES}
-	${GLFW3_LIBRARY}
-)
+
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+	ADD_DEFINITIONS (-DDEBUG)
+ENDIF()
 
